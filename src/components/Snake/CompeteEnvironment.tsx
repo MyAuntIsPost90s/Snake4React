@@ -6,7 +6,7 @@ import BaseFood from '@/components/Snake/BaseFood';
 
 interface IProp extends BaseEnvironmentProp {
   snakes: Array<BaseSnake>
-  food: BaseFood
+  foods: Array<BaseFood>
 }
 
 /**
@@ -17,7 +17,7 @@ interface IProp extends BaseEnvironmentProp {
 export default class CompeteEnvironment extends BaseEnvironment<IProp> {
 
   protected start(): void {
-    this.createFood();
+    this.initFoods();
     this.snakeStartMove();
   }
 
@@ -31,18 +31,41 @@ export default class CompeteEnvironment extends BaseEnvironment<IProp> {
     }
   };
 
-  private createFood = () => {
+  private initFoods = () => {
     let disablePosition: { [index: string]: boolean | undefined } = {};
     for (let i = 0; i < this.props.snakes.length; i++) {
       for (let key in this.props.snakes[i].getSnakeSet()) {
         disablePosition[key] = this.props.snakes[i].getSnakeSet()[key];
       }
     }
-    this.props.food.createNewFood(disablePosition, this.props.width, this.props.height);
+    for (let i = 0; i < this.props.foods.length; i++) {
+      let food = this.props.foods[i].createNewFood(disablePosition, this.props.width, this.props.height);
+      disablePosition[food[0] + '-' + food[1]] = true;
+    }
+  };
+
+  private createFood = (food: BaseFood) => {
+    let disablePosition: { [index: string]: boolean | undefined } = {};
+    for (let i = 0; i < this.props.snakes.length; i++) {
+      for (let key in this.props.snakes[i].getSnakeSet()) {
+        disablePosition[key] = this.props.snakes[i].getSnakeSet()[key];
+      }
+    }
+    for (let i = 0; i < this.props.foods.length; i++) {
+      if (food !== this.props.foods[i]) {
+        let foodPosition = this.props.foods[i].getFoodPosition();
+        disablePosition[foodPosition[0] + '-' + foodPosition[1]] = true;
+      }
+    }
+    food.createNewFood(disablePosition, this.props.width, this.props.height);
   };
 
   protected inFood(x: number, y: number): BaseFood | undefined {
-    return this.props.food.inFood(x, y) ? this.props.food : undefined;
+    for (let i = 0; i < this.props.foods.length; i++) {
+      if (this.props.foods[i].inFood(x, y)) {
+        return this.props.foods[i];
+      }
+    }
   }
 
   protected inSnake(x: number, y: number): BaseSnake | undefined {
@@ -56,8 +79,10 @@ export default class CompeteEnvironment extends BaseEnvironment<IProp> {
   protected renderFood(food: BaseFood, baseClass: string, key: string): any {
     return (
       <div className={baseClass}
-           style={this.itemStyle}
-           key={key}>丸</div>
+           style={{ backgroundColor: food.getColor(), ...this.itemStyle }}
+           key={key}>
+        {food.getContent()}
+      </div>
     );
   }
 
@@ -117,9 +142,12 @@ export default class CompeteEnvironment extends BaseEnvironment<IProp> {
       }
     }
     //食物
-    if (this.props.food.inFood(head[0], head[1])) {
-      snake.eat(this.props.food);
-      this.createFood();
+    for (let i = 0; i < this.props.foods.length; i++) {
+      if (this.props.foods[i].inFood(head[0], head[1])) {
+        snake.eat(this.props.foods[i]);
+        this.createFood(this.props.foods[i]);
+        break;
+      }
     }
     return true;
   };

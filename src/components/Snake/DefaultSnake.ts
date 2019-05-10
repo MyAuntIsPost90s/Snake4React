@@ -6,7 +6,7 @@ import BaseFood from '@/components/Snake/BaseFood';
  *
  * @author cch
  */
-export class DefaultSnake implements BaseSnake {
+export default class DefaultSnake implements BaseSnake {
   private static readonly Direction = {
     LEFT: 1,
     RIGHT: 2,
@@ -72,9 +72,32 @@ export class DefaultSnake implements BaseSnake {
     return this.positionSet;
   }
 
-  growth(): void {
-    this.position.push([0, 0]);
-    this.move();
+  growth(num: number): void {
+    if (num > 0) {
+      for (let i = 0; i < num; i++) {
+        this.position.push([0, 0]);
+        this.move();
+      }
+    }
+    if (num < 0) {
+      if (this.position.length <= 3) {
+        return;
+      }
+      for (let i = 0; i < -num; i++) {
+        this.positionSet[this.position[this.position.length - 1][0] + '-' + this.position[this.position.length - 1][1]] = undefined;  //移除最后一个
+        this.position.splice(this.position.length - 1, 1);
+      }
+    }
+  }
+
+  speed(num: number): void {
+    this.sp = this.sp + num;
+    if (this.sp < 10) {
+      this.sp = 10;
+      return;
+    }
+    clearInterval(this.handler);
+    this.handler = setInterval(this.moveHandler, this.sp);
   }
 
   eat(food: BaseFood): void {

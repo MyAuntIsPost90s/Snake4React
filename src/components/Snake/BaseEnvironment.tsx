@@ -90,7 +90,7 @@ export abstract class BaseEnvironment<T extends BaseEnvironmentProp> extends Rea
     let bgStyle = {
       width: (this.itemSize - 1) * this.props.width,
       height: (this.itemSize - 1) * this.props.height,
-      margin: 'auto',
+      margin: '10px auto'
     };
     return (
       <div style={bgStyle}>

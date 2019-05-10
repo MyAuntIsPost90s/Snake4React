@@ -36,8 +36,10 @@ export default class DefaultEnvironment extends BaseEnvironment<IProp> {
   protected renderFood(food: BaseFood, baseClass: string, key: string): any {
     return (
       <div className={baseClass}
-           style={this.itemStyle}
-           key={key}>丸</div>
+           style={{ backgroundColor: food.getColor(), ...this.itemStyle }}
+           key={key}>
+        {food.getContent()}
+      </div>
     );
   }
 

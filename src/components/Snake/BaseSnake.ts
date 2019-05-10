@@ -54,7 +54,14 @@ export default interface BaseSnake {
    *
    * @param
    */
-  growth(): void
+  growth(num:number): void
+
+  /**
+   * 速度
+   *
+   * @param
+   */
+  speed(num:number):void
 
   /**
    * 吃

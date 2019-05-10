@@ -2,9 +2,10 @@ import React from 'react';
 import BaseProp from '@/components/BaseProps/BaseProp';
 import CompeteEnvironment from '@/components/Snake/CompeteEnvironment';
 import DefaultEnvironment from '@/components/Snake/DefaultEnvironment';
-import { DefaultSnake } from '@/components/Snake/DefaultSnake';
-import { DefaultFood } from '@/components/Snake/DefaultFood';
-import { CompetitionSnake } from '@/components/Snake/CompetitionSnake';
+import DefaultSnake from '@/components/Snake/DefaultSnake';
+import DefaultFood from '@/components/Snake/DefaultFood';
+import SpeedFood from '@/components/Snake/SpeedFood';
+import ReduceFood from '@/components/Snake/ReduceFood';
 
 export default class extends React.Component<BaseProp> {
 
@@ -29,10 +30,19 @@ export default class extends React.Component<BaseProp> {
                                               down: 's',
                                               right: 'd',
                                               left: 'a',
-                                            }), //传统蛇，食物副作用只有变长
-                                            new CompetitionSnake('啥是gay', 5, '#ff7d6c', 20, 12, 150), //不设置按键则为上下左右键,食物副作用变长，变慢
+                                            }),
+                                            new DefaultSnake('啥是gay', 5, '#ff7d6c', 20, 12, 150),
                                           ]}
-                                          food={new DefaultFood()}/>);
+                                          foods={[
+                                            new DefaultFood(),
+                                            new DefaultFood(),
+                                            new DefaultFood(),
+                                            new DefaultFood(),
+                                            new DefaultFood(),
+                                            new DefaultFood(),
+                                            new SpeedFood(),
+                                            new ReduceFood(),
+                                          ]}/>);
     return competeEnv;
   }
 };
