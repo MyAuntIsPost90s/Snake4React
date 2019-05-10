@@ -31,17 +31,17 @@ export default class extends React.Component<BaseProp> {
                                               right: 'd',
                                               left: 'a',
                                             }),
-                                            new DefaultSnake('啥是gay', 5, '#ff7d6c', 20, 12, 150),
+                                            new DefaultSnake('啥是gay', 5, '#ff7d6c', 20, 12, 150), //默认 上下左右键
                                           ]}
                                           foods={[
+                                            new DefaultFood(), //普通食物 副作用：长大 1
                                             new DefaultFood(),
                                             new DefaultFood(),
                                             new DefaultFood(),
                                             new DefaultFood(),
                                             new DefaultFood(),
-                                            new DefaultFood(),
-                                            new SpeedFood(),
-                                            new ReduceFood(),
+                                            new SpeedFood(),  //速度食物 副作用：提速 2
+                                            new ReduceFood(), //缩小食物 副作用：提速 2 长大 -1
                                           ]}/>);
     return competeEnv;
   }

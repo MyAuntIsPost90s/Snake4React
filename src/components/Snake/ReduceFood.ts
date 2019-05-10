@@ -17,7 +17,7 @@ export default class ReduceFood extends DefaultFood {
   }
 
   effect(snake: BaseSnake): any {
-    snake.growth(-1); //成短
+    snake.growth(-1); //变短
     snake.speed(-2); //变快2
   }
 }
