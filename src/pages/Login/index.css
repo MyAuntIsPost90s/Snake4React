@@ -1,0 +1,65 @@
+.loginTheme {
+  height: 100vh;
+  background-image: url("../../assets/Login/login-theme2-bg.svg");
+  background-size: 100%;
+  text-align: center;
+}
+
+.loginThemeFooter {
+  text-align: center;
+  line-height: 60px;
+  color: #78797b;
+  background-color: transparent;
+}
+
+.loginThemeMain {
+  text-align: center;
+}
+
+.loginThemeMain .title {
+  color: rgba(0, 0, 0, .85);
+  font-weight: 700;
+  font-size: 33px;
+  height: 60px;
+  margin-top: 80px;
+}
+
+.loginThemeMain .logo {
+  width: 50px;
+  height: 50px;
+  margin: 0px 10px 10px 10px;
+}
+
+.loginThemeMain .title span {
+  height: 60px;
+  overflow-y: hidden;
+  line-height: 60px;
+  text-align: left;
+}
+
+.loginThemeMain .title em {
+  color: rgba(0, 0, 0, .45);
+  font-style: normal;
+  font-size: 12px;
+  overflow-y: hidden;
+  display: inline-block;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.loginThemeMain .desc {
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+}
+
+.loginThemeMain .loginBox {
+  display: inline-block;
+  border-top: 1px solid #e8e8e8;
+  margin-top: 48px;
+  width: 375px;
+  padding-top: 32px;
+}
+
+.loginThemeMain .loginBox div {
+  margin-bottom: 30px;
+}

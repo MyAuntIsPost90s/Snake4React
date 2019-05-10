@@ -1,0 +1,13 @@
+.item {
+  background: #fff;
+  float: left;
+  margin-top: -1px;
+  margin-left: -1px;
+  border: 1px solid #DCDFE6;
+  text-align: center;
+  color: #e8e8e8;
+}
+
+.active {
+  background: #409EFF;
+}
