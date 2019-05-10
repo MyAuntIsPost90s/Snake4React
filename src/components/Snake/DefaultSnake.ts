@@ -13,19 +13,20 @@ export class DefaultSnake implements BaseSnake {
     TOP: 3,
     BOTTOM: 4,
   };
-  private readonly upKey: string = 'ArrowUp';
-  private readonly downKey: string = 'ArrowDown';
-  private readonly leftKey: string = 'ArrowLeft';
-  private readonly rightKey: string = 'ArrowRight';
-  private position = new Array<Array<number>>();
-  private positionSet: { [index: string]: boolean | undefined } = {};
-  private direction = 0;  //方向
-  private handler: any;
-  private keyCache: any;
-  private readonly sp: number = 200;
-  private readonly color: string = '#409EFF';
-  private readonly name: string = new Date().getTimezoneOffset().toString();
-  private static keyUpEventBus:Array<any> = [];   //事件总线
+  protected readonly upKey: string = 'ArrowUp';
+  protected readonly downKey: string = 'ArrowDown';
+  protected readonly leftKey: string = 'ArrowLeft';
+  protected readonly rightKey: string = 'ArrowRight';
+  protected position = new Array<Array<number>>();
+  protected positionSet: { [index: string]: boolean | undefined } = {};
+  protected direction = 0;  //方向
+  protected handler: any;
+  protected keyCache: any;
+  protected sp: number = 200;
+  protected readonly color: string = '#409EFF';
+  protected readonly name: string = new Date().getTimezoneOffset().toString();
+  protected static keyUpEventBus: Array<any> = [];   //事件总线
+  protected moveHandler: any;
 
   constructor(name: string, size: number, color: string, x: number, y: number, sp: number, keys?: { up: string, down: string, left: string, right: string }) {
     this.sp = sp;
@@ -91,11 +92,12 @@ export class DefaultSnake implements BaseSnake {
   }
 
   onStartMove(cb: any) {
-    this.handler = setInterval(() => {
+    this.moveHandler = () => {
       this.setDirection();
       this.move();
       cb();
-    }, this.sp);
+    };
+    this.handler = setInterval(this.moveHandler, this.sp);
   }
 
   dead(): void {
@@ -108,18 +110,18 @@ export class DefaultSnake implements BaseSnake {
    * @param
    */
   private setEvent = () => {
-    if(!document.onkeyup){
+    if (!document.onkeyup) {
       document.onkeyup = function(event) {
         let e = event || window.event || arguments.callee.caller.arguments[0];
-        for(let i=0;i<DefaultSnake.keyUpEventBus.length;i++){
+        for (let i = 0; i < DefaultSnake.keyUpEventBus.length; i++) {
           DefaultSnake.keyUpEventBus[i](e);
         }
       };
     }
-    DefaultSnake.keyUpEventBus.push((e:any)=>{
+    DefaultSnake.keyUpEventBus.push((e: any) => {
       console.log(e);
       this.keyCache = e.key;
-    })
+    });
   };
 
   /**
