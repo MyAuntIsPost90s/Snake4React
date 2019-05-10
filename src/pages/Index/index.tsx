@@ -24,7 +24,7 @@ export default class extends React.Component<BaseProp> {
     // 蛇环境（竞赛贪吃蛇）
     let competeEnv = (<CompeteEnvironment height={40}
                                           width={80}
-                                          snakes={[
+                                          snakes={[ //支持n条蛇
                                             new DefaultSnake('大蛇丸', 5, '#409EFF', 20, 6, 150, {
                                               up: 'w',
                                               down: 's',
