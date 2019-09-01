@@ -18,6 +18,6 @@ export default class SpeedFood extends DefaultFood {
 
   effect(snake: BaseSnake): any {
     //snake.growth(1); //成长
-    snake.speed(-2); //变快2
+    snake.speed(-5); //变快2
   }
 }

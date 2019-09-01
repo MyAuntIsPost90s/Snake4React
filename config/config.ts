@@ -1,4 +1,4 @@
-import {IConfig} from 'umi-types';
+import { IConfig } from 'umi-types';
 import routes from './router';
 
 // ref: https://umijs.org/config/
@@ -19,10 +19,13 @@ const config: IConfig = {
         exclude: [
           /components\//,
         ],
-        hardSource: true
+        hardSource: true,
       },
     }],
   ],
-}
+  targets: {
+    ie: 9,
+  },
+};
 
 export default config;
